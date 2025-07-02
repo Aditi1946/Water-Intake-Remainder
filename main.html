@@ -4,72 +4,11 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Water Drinking Reminder</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    max-width: 420px;
-    margin: 40px auto;
-    padding: 20px;
-    text-align: center;
-    background: #e0f7fa;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #00796b;
-  }
-  h1 {
-    color: #004d40;
-  }
-  label, input, button {
-    font-size: 1.1rem;
-    margin: 10px 5px;
-  }
-  input[type="number"] {
-    width: 80px;
-    padding: 5px;
-    font-size: 1.1rem;
-    border-radius: 5px;
-    border: 1px solid #00796b;
-  }
-  button {
-    padding: 10px 20px;
-    background: #00796b;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  button:disabled {
-    background: #a7a7a7;
-    cursor: not-allowed;
-  }
-  #counter {
-    font-size: 1.8rem;
-    margin-top: 20px;
-    color: #004d40;
-  }
-  #glass {
-    margin-top: 20px;
-    font-size: 5rem;
-  }
-  #progressContainer {
-    margin-top: 25px;
-    background: #b2dfdb;
-    height: 25px;
-    border-radius: 15px;
-    overflow: hidden;
-  }
-  #progressBar {
-    height: 100%;
-    width: 0%;
-    background: #00796b;
-    transition: width 0.5s ease-in-out;
-  }
-  #controls {
-    margin-top: 15px;
-  }
-</style>
+<link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-
+<
 <h1>Water Drinking Reminder</h1>
 
 <label for="interval">Set reminder interval (minutes):</label><br />
@@ -91,76 +30,7 @@
   <div id="progressBar"></div>
 </div>
 
-<script>
-  let reminderTimer;
-  let glassesDrunk = 0;
 
-  const intervalInput = document.getElementById('interval');
-  const startBtn = document.getElementById('startBtn');
-  const stopBtn = document.getElementById('stopBtn');
-  const resetBtn = document.getElementById('resetBtn');
-  const goalInput = document.getElementById('goal');
-  const counter = document.getElementById('counter');
-  const glass = document.getElementById('glass');
-  const progressBar = document.getElementById('progressBar');
-
-  function updateCounterAndProgress() {
-    counter.textContent = `Glasses drunk: ${glassesDrunk} 💧`;
-    // Change glass emoji based on progress
-    if (glassesDrunk === 0) {
-      glass.textContent = '🥛'; // empty glass
-    } else if (glassesDrunk < 4) {
-      glass.textContent = '🧊'; // ice cube - partial progress
-    } else {
-      glass.textContent = '💧'; // water drop - good progress
-    }
-
-    const goal = parseInt(goalInput.value) || 8;
-    const percent = Math.min((glassesDrunk / goal) * 100, 100);
-    progressBar.style.width = percent + '%';
-  }
-
-  function remindToDrink() {
-    alert('Time to drink water! 💧');
-    const drank = confirm('Did you drink a glass of water? Click OK to confirm.');
-    if (drank) {
-      glassesDrunk++;
-      updateCounterAndProgress();
-    }
-  }
-
-  startBtn.addEventListener('click', () => {
-    const minutes = parseInt(intervalInput.value);
-    if (isNaN(minutes) || minutes < 1) {
-      alert('Please enter a valid number of minutes (1 or more).');
-      return;
-    }
-    startBtn.disabled = true;
-    stopBtn.disabled = false;
-    intervalInput.disabled = true;
-
-    remindToDrink(); // Immediate first reminder on start
-    reminderTimer = setInterval(remindToDrink, minutes * 60 * 1000);
-  });
-
-  stopBtn.addEventListener('click', () => {
-    clearInterval(reminderTimer);
-    startBtn.disabled = false;
-    stopBtn.disabled = true;
-    intervalInput.disabled = false;
-  });
-
-  resetBtn.addEventListener('click', () => {
-    glassesDrunk = 0;
-    updateCounterAndProgress();
-  });
-
-  goalInput.addEventListener('change', () => {
-    updateCounterAndProgress();
-  });
-
-  updateCounterAndProgress();
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
